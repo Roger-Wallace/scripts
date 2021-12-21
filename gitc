@@ -11,12 +11,17 @@ then
 	exit
 fi
 
-echo "Enter commit message:"
+echo "Enter commit message (Hit enter to use last commit message):"
 read commit
 
-/usr/bin/git commit -m "$commit"
+if [[ -z $commit ]]
+then
+	/usr/bin/git commit -C HEAD
+else
+	/usr/bin/git commit -m "$commit"
+fi
 
-echo "Push your commit to Github?"
+echo "Push your commit to Github?:[y/N]"
 read push
 
 if [[ "$push" =~ [yY]$ ]]
