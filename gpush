@@ -1,0 +1,30 @@
+#!/bin/bash
+
+## Use to commit and/or push to github ##
+
+/usr/bin/git add .  
+
+/usr/bin/git commit --dry-run > /dev/null 2>&1
+if [[ $? == 1 ]]
+then
+	echo "Nothing to commit"
+	exit
+fi
+
+echo "Enter commit message:"
+read commit
+
+/usr/bin/git commit -m "$commit"
+
+echo "Push your commit to Github?"
+read push
+
+if [[ "$push" =~ [yY]$ ]]
+	then
+		/usr/bin/git push
+	else
+		exit
+fi
+
+
+exit
